@@ -1,36 +1,191 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Proposal: Travel Packing Quiz
+## 1. Website Theme
+Travel Packing Quiz – a single-page interactive quiz application where users test their travel preparation skills.
 
-## Getting Started
+## 2. Overview
+The user is presented with a travel city and must select the essential packing items from a mixed list of options. After submitting their choices, the app calculates a score based on how many correct items they selected (and how many wrong items they avoided).
 
-First, run the development server:
+This is not a standard todo-list or packing checklist — it is a quiz-style game that tests the user's knowledge of what to pack for summer and activities.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 3. Features & Functionality
+### 3.1 Destination Selection
+The page displays 5 travel cities as clickable choice.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Each choice shows: city name, emoji.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Clicking choice selects it as the current city.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 3.2 Packing Item Selection
+Once a city is selected, a list packing items appears.
 
-## Learn More
+It contains both correct and incorrect items for that city.
 
-To learn more about Next.js, take a look at the following resources:
+The user can click items to toggle them on/off (selected/unselected).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Selected items get a visual "checked" style.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 3.3 Submit & Score
+A "Check Packing" button submits the user's selection.
 
-## Deploy on Vercel
+The app compares the user's choices against the correct packing list.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Scoring logic:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
++1 point for each correct item selected
+
+-1 point for each incorrect item selected (penalty)
+
+Minimum score is 0 (cannot go negative)
+
+The score is displayed immediately after submission.
+
+### 3.4 Feedback
+After submission:
+
+<!-- Correctly selected items turn green
+
+Incorrectly selected items turn red
+
+Missing correct items are shown with a "You forgot: ..." message
+
+A "Next Destination" button advances to the next quiz. -->
+
+### 3.5 Score Dashboard
+A persistent scoreboard shows:
+
+Current score
+
+Total destinations completed
+
+Star rating (e.g., ⭐⭐⭐ for 100%, ⭐⭐ for 70%, ⭐ for 40%)
+
+The scoreboard updates automatically after each round.
+
+## 4. Component Structure(6 components)
+text
+Src 
+├── Header
+│   └── Displays title 
+├── SubTitle
+│   └── Displays subTitle 
+├── Selector
+│   └── Renders 5 city choices, handles selection
+├── ListItems
+│   └── Renders mixed item buttons with toggle selection
+├── SubmitButton
+│   └── Triggers scoring, shows feedback, enables "Next"
+└── ScoreBoard
+    └── Shows correct/incorrect highlights and missing items, score, progress, and star rating
+
+## 5. Data Structure
+TravelList Data
+typescript
+interface Destination {
+  id: string;
+  name: string;
+  emoji: string;
+  climate: string;
+  temp: string;
+}
+Packing Item Data
+typescript
+type travelType = {
+  id:number,
+  icon:string,
+  name:string,
+  img:string,
+  importantList:string[],
+  allPackLists:string[]
+}
+
+Example: Shanghai
+importItems: ["Light cotton T-shirts (2 for weekend, 5 for week)",
+      "Shorts (1 for weekend, 3 for week)",
+      "Sunscreen SPF 50+",
+      "Portable fan",
+      "Umbrella (summer rain)"]
+
+allPackItems: same as above + ["winter coat", "scarf", "umbrella", "boots"] (decoys)
+
+6. User Flow (Step-by-Step)
+Page loads → User sees 10 destinations + empty packing grid + score at 0
+
+User clicks a destination → Packing grid populates with a mixed list of items
+
+User selects items (clicks to toggle) → Selected items highlight
+
+User clicks "Check Packing" →
+
+Score updates
+
+Correct items turn green
+
+Incorrect items turn red
+
+Missing items shown in feedback message
+
+User clicks "Next Destination" → Next destination loads, selections reset
+
+After 10 destinations → Final score and star rating displayed
+
+7. Screenshots
+(Placeholder – add actual screenshots here)
+
+text
+[Home page with 10 destination cards]
+[Packing grid with mixed items]
+[Feedback view with green/red highlights]
+[Final score screen with stars]
+Screenshots will be placed in public/screenshots/ and referenced here.
+
+8. Technologies
+React (Vite)
+
+TypeScript
+
+Vitest / Jest + React Testing Library
+
+CSS Modules or plain CSS for styling
+
+9. Team分工 (Division of Work)
+Component	Responsible
+Header	Developer A
+DestinationSelector	Developer A
+PackingItemGrid	Developer B
+SubmitButton	Developer B
+FeedbackPanel	Developer A
+ScoreBoard	Developer B
+Scoring logic (utils)	Both
+Integration tests	Both
+10. Testing Strategy
+Unit Tests (≥20)
+getByRole – testing buttons, headings, checkboxes
+
+getAllBy... – testing multiple items in a grid
+
+queryBy... – testing for absent items (e.g., decoys not showing as correct)
+
+Events: click, change
+
+Integration Tests (≥3)
+Full flow: Select destination → pick items → submit → score updates → next destination
+
+State change: Destination switches → packing list updates
+
+Scoring: Correct items add points, wrong items subtract points
+
+11. Notes
+The website UI will not be assessed – only the proposal and tests.
+
+The tests should clearly communicate to another developer how the app should behave.
+
+All tests are written in TypeScript.
+
+12. Images & Data Files
+Destination images: public/images/destinations/*.jpg
+
+Packing item icons: public/icons/*.png
+
+Data file: src/data/destinations.ts
+
+
