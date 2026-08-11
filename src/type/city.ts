@@ -113,7 +113,7 @@ export const travelList:travelType[] = [
   },
   {
     id: 5,
-    icon: "🌴",
+    icon: "🏖️",
     name: "Gran Canaria",
     img: "Grancanaria.jpg",
     importantList: [
