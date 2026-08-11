@@ -1,4 +1,4 @@
-import { travelType } from "../data/data"
+import { travelType } from "../type/travel"
 
 export const travelList:travelType[] = [
   {
