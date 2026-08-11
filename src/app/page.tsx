@@ -9,8 +9,11 @@ export default function Home() {
     setCity(selectedCity)
   }
   return (
-    <div>
-      <Selector city={city} updateCity={handleChange}/>
+    <div className="m-auto">
+      <div className="flex gap-5">
+        <img src="/world.jpg" alt="world" className="w-30 h-fit"/>
+        <Selector city={city} updateCity={handleChange}/>
+      </div>
     </div>
   );
 }
