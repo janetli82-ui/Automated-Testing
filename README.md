@@ -67,27 +67,18 @@ Src
 ├── Header
 │   └── Displays title 
 ├── SubTitle
-│   └── Displays subTitle 
+│   └── Displays subTitle in Header
 ├── Selector
 │   └── Renders 5 city choices, handles selection
 ├── ListItems
 │   └── Renders mixed item buttons with toggle selection
-├── SubmitButton
-│   └── Triggers scoring, shows feedback, enables "Next"
-└── ScoreBoard
+├── PackingList
+│   └── Renders all information about city name, city image, allPackList
+└── Result
     └── Shows correct/incorrect highlights and missing items, score, progress, and star rating
 
 ## 5. Data Structure
 TravelList Data
-typescript
-interface Destination {
-  id: string;
-  name: string;
-  emoji: string;
-  climate: string;
-  temp: string;
-}
-Packing Item Data
 typescript
 type travelType = {
   id:number,
@@ -99,18 +90,33 @@ type travelType = {
 }
 
 Example: Shanghai
-importItems: ["Light cotton T-shirts (2 for weekend, 5 for week)",
-      "Shorts (1 for weekend, 3 for week)",
-      "Sunscreen SPF 50+",
-      "Portable fan",
-      "Umbrella (summer rain)"]
+id: 1,
+icon: "🏙️",
+name: "Shanghai",
+img: "Shanghai.jpg",
+importItems: [
+  "Light cotton T-shirts (2 for weekend, 5 for week)",
+  "Shorts (1 for weekend, 3 for week)",
+  "Sunscreen SPF 50+",
+  "Portable fan",
+  "Umbrella (summer rain)"
+]
+allPackItems: same as above + [
+  "Sneakers (1 pair)",
+  "Sandals (1 pair)",
+  "Sunglasses",
+  "Hat/cap",
+  "Jeans/light pants (1 for weekend / 2 for week)",
+  "Underwear (3 for weekend / 7 for week)",
+  "Socks (2 for weekend / 5 for week)",
+  "Power bank",
+  "Travel adapter",
+] 
 
-allPackItems: same as above + ["winter coat", "scarf", "umbrella", "boots"] (decoys)
+## 6. User Flow (Step-by-Step)
+Page loads → User sees 5 cites + empty packing lists + score at 0
 
-6. User Flow (Step-by-Step)
-Page loads → User sees 10 destinations + empty packing grid + score at 0
-
-User clicks a destination → Packing grid populates with a mixed list of items
+User clicks a city → Packing grid populates with a mixed list of items
 
 User selects items (clicks to toggle) → Selected items highlight
 
@@ -128,7 +134,7 @@ User clicks "Next Destination" → Next destination loads, selections reset
 
 After 10 destinations → Final score and star rating displayed
 
-7. Screenshots
+## 7. Screenshots
 (Placeholder – add actual screenshots here)
 
 text
@@ -138,26 +144,26 @@ text
 [Final score screen with stars]
 Screenshots will be placed in public/screenshots/ and referenced here.
 
-8. Technologies
-React (Vite)
+## 8. Technologies
+Nextjs
 
 TypeScript
 
 Vitest / Jest + React Testing Library
 
-CSS Modules or plain CSS for styling
+tailwind
 
-9. Team分工 (Division of Work)
+## 9. Team(Division of Work)
 Component	Responsible
-Header	Developer A
-DestinationSelector	Developer A
-PackingItemGrid	Developer B
-SubmitButton	Developer B
-FeedbackPanel	Developer A
-ScoreBoard	Developer B
-Scoring logic (utils)	Both
+Header	Gabi
+SubTitle Ting
+Selector	Ting
+PackList Gabi
+ListItems	Ting
+Result	Gabi
 Integration tests	Both
-10. Testing Strategy
+
+## 10. Testing Strategy
 Unit Tests (≥20)
 getByRole – testing buttons, headings, checkboxes
 
@@ -174,18 +180,16 @@ State change: Destination switches → packing list updates
 
 Scoring: Correct items add points, wrong items subtract points
 
-11. Notes
+## 11. Notes
 The website UI will not be assessed – only the proposal and tests.
 
 The tests should clearly communicate to another developer how the app should behave.
 
 All tests are written in TypeScript.
 
-12. Images & Data Files
-Destination images: public/images/destinations/*.jpg
+## 12. Images & Data Files
+City images: public/*.jpg
 
-Packing item icons: public/icons/*.png
-
-Data file: src/data/destinations.ts
+Data file: src/data/city.ts
 
 
