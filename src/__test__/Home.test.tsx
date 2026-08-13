@@ -1,11 +1,11 @@
 import {render, screen, fireEvent} from "@testing-library/react"
-//import Home from ""
+import Home from ""
 
 
 describe("Home component", () => {
-  test("user can select importList and see result", () => {
+  test("user can select city, then select importList and see result", () => {
     const mockCity = "London"
-    //render(<Home />)
+    render(<Home />)
     const selectedCity = screen.getByTestId("city")
     fireEvent.change(selectedCity, { target: { value: mockCity } })
    
@@ -26,10 +26,10 @@ describe("Home component", () => {
       "Sandals (1 pair)",
       "Sunscreen SPF 50+",
       "Sunglasses"]}
-    //render(<Home />)
-    const selectedCity = screen.getByTestId("city") as HTMLSelectElement    
+    render(<Home />)
+    const selectedCity = screen.getByTestId("city")  
     fireEvent.change(selectedCity, { target: { value: mockCity.name } })
-    expect(selectedCity.value).toBe(mockCity.name)
+    expect((selectedCity as HTMLSelectElement).value).toBe(mockCity.name)
 
     mockCity.allPackLists.forEach(list => {
       const item = screen.getAllByText(list)
