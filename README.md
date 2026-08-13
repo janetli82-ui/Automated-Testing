@@ -8,7 +8,7 @@ The user is presented with a travel city and must select the essential packing i
 This is not a standard todo-list or packing checklist — it is a quiz-style game that tests the user's knowledge of what to pack for summer and activities.
 
 ## 3. Features & Functionality
-### 3.1 Destination Selection
+### 3.1 City Selection
 The page displays 5 travel cities as clickable choice.
 
 Each choice shows: city name, emoji.
@@ -53,13 +53,13 @@ A "Next Destination" button advances to the next quiz. -->
 ### 3.5 Score Dashboard
 A persistent scoreboard shows:
 
-Current score
+<!-- Current score
 
 Total destinations completed
 
 Star rating (e.g., ⭐⭐⭐ for 100%, ⭐⭐ for 70%, ⭐ for 40%)
 
-The scoreboard updates automatically after each round.
+The scoreboard updates automatically after each round. -->
 
 ## 4. Component Structure(6 components)
 text
@@ -71,7 +71,7 @@ Src
 ├── Selector
 │   └── Renders 5 city choices, handles selection
 ├── ListItems
-│   └── Renders mixed item buttons with toggle selection
+│   └── Renders mixed item buttons with toggle selection in PackingList
 ├── PackingList
 │   └── Renders all information about city name, city image, allPackList
 └── Result
@@ -120,7 +120,7 @@ User clicks a city → Packing grid populates with a mixed list of items
 
 User selects items (clicks to toggle) → Selected items highlight
 
-User clicks "Check Packing" →
+User clicks "Submit" →
 
 Score updates
 
@@ -130,15 +130,11 @@ Incorrect items turn red
 
 Missing items shown in feedback message
 
-User clicks "Next Destination" → Next destination loads, selections reset
-
-After 10 destinations → Final score and star rating displayed
-
 ## 7. Screenshots
 (Placeholder – add actual screenshots here)
 
 text
-[Home page with 10 destination cards]
+[Home page with 5 destination cards]
 [Packing grid with mixed items]
 [Feedback view with green/red highlights]
 [Final score screen with stars]
@@ -158,7 +154,7 @@ Component	Responsible
 Header	Gabi
 SubTitle Ting
 Selector	Ting
-PackList Gabi
+PackingList Gabi
 ListItems	Ting
 Result	Gabi
 Integration tests	Both
@@ -174,9 +170,9 @@ queryBy... – testing for absent items (e.g., decoys not showing as correct)
 Events: click, change
 
 Integration Tests (≥3)
-Full flow: Select destination → pick items → submit → score updates → next destination
+Full flow: Select city→ pick items → submit → score updates 
 
-State change: Destination switches → packing list updates
+State change: City switches → packing list updates
 
 Scoring: Correct items add points, wrong items subtract points
 
