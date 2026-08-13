@@ -18,5 +18,5 @@ export default function Home() {
         <Selector city={city} updateCity={handleChange}/>
       </div>
     </div>
-  );
+ )
 }
