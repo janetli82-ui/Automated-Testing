@@ -58,7 +58,7 @@ const Result = ({ travel, checkedItems }: ResultProps) => {
             <p className="mt-5 text-lg text-gray-700">
               {importantPacked} / {importantTotal} packed
             </p>
-            {packedItems > importantTotal ? (
+            {packedItems > importantTotal && importantPacked === importantTotal ? (
               <p className="py-3">
                 ⚠️ Warning! You got all the correct answers ✅, but you also
                 selected extra ones ❌. Challenge failed 😞
