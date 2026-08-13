@@ -1,9 +1,10 @@
+import PackingList from "../../components/PackingList";
 
 
 export default function Home() {
   return (
     <div>
-      test
+      <PackingList />
     </div>
   );
 }
