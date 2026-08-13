@@ -19,8 +19,25 @@ describe("Home component", () => {
     expect(result).toBeInTheDocument()
   })
   
-  test("state change", () => {
+  test("state change - displays correct packing list when city selected", () => {
+    const mockCity = {name:"London", allPackLists: [
+      "Light cotton T-shirts (2 for weekend / 5 for week)",
+      "Sneakers (1 pair)",
+      "Sandals (1 pair)",
+      "Sunscreen SPF 50+",
+      "Sunglasses"]}
+    //render(<Home />)
+    const selectedCity = screen.getByTestId("city") as HTMLSelectElement    
+    fireEvent.change(selectedCity, { target: { value: mockCity.name } })
+    expect(selectedCity.value).toBe(mockCity.name)
 
+    mockCity.allPackLists.forEach(list => {
+      const item = screen.getAllByText(list)
+      expect(item).toBeInTheDocument()
+    })
+
+    const listItems = screen.getAllByRole("list-item") 
+    expect(listItems).toHaveLength(mockCity.allPackLists.length)
   })
 
   test("scoring", () => {
