@@ -1,4 +1,5 @@
 import { travelList } from "@/data/city"
+import PackingList from "../PackingList"
 
 type selectorType = {
   city:string,
@@ -14,6 +15,7 @@ const Selector = ({city, updateCity}:selectorType) => {
           <option value={item.name} key={index}>{item.icon + item.name}</option>
         )}
       </select>
+      <PackingList city={city} />
     </div>
   )
 }

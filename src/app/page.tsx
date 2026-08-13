@@ -1,5 +1,4 @@
 'use client'
-
 import { useState } from "react"
 import Selector from "@/components/Selector";
 import Header from "../components/Header";
