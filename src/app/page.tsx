@@ -1,3 +1,4 @@
+'use client'
 
 import { useState } from "react"
 import Selector from "@/components/Selector";
@@ -12,10 +13,7 @@ export default function Home() {
   return ( 
     <div className="m-auto flex flex-col gap-5">
       <Header />
-      <div className="flex gap-5">
-        <img src="/world.jpg" alt="world" className="w-30 h-fit"/>
-        <Selector city={city} updateCity={handleChange}/>
-      </div>
+      <Selector city={city} updateCity={handleChange}/>
     </div>
   );
 }
