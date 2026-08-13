@@ -2,7 +2,7 @@ import { travelType } from "../type/travel"
 
 export const travelList:travelType[] = [
   {
-    id: 1,
+    id: 0,
     icon: "🏙️",
     name: "Shanghai",
     img: "Shanghai.jpg",
@@ -31,7 +31,7 @@ export const travelList:travelType[] = [
     ]
   },
   {
-    id: 2,
+    id: 1,
     icon: "🗼",
     name: "Paris",
     img: "Paris.jpg",
@@ -59,7 +59,7 @@ export const travelList:travelType[] = [
     ]
   },
   {
-    id: 3,
+    id: 2,
     icon: "🛍️",
     name: "Milan",
     img: "Milan.jpg",
@@ -86,7 +86,7 @@ export const travelList:travelType[] = [
     ]
   },
   {
-    id: 4,
+    id: 3,
     icon: "🏝️",
     name: "Koh Samui",
     img: "Kohsamui.jpg",
@@ -114,7 +114,7 @@ export const travelList:travelType[] = [
     ]
   },
   {
-    id: 5,
+    id: 4,
     icon: "🏖️",
     name: "Gran Canaria",
     img: "Grancanaria.jpg",

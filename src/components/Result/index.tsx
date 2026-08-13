@@ -23,8 +23,8 @@ const Result = ({ travel, checkedItems }: ResultProps) => {
   const isDone = remainingItems === 0;
 
   return (
-    <section>
-      <h2 className="text-3xl font-normal text-gray-900">Result</h2>
+    <section className="p-3">
+      <h4 className="text-3xl font-normal text-gray-900">Result</h4>
 
       <div className="mt-8 grid gap-6 text-gray-800 sm:grid-cols-3">
         <div>

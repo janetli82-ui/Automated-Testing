@@ -13,13 +13,13 @@ const ListItems = ({ selectedId, selectedLists, updateChangeBox}:listItemType) =
     if(isChecked){
       updateChangeBox([...selectedLists, list])
     }else{
-      selectedLists.filter(item => item !== list)
+      updateChangeBox(selectedLists.filter(item => item !== list))
     }
   }
 
   return(
-    <div className="flex flex-col">
-      {travelList[selectedId].allPackLists.map((packList, index) =>
+    <div className="flex flex-col p-3">
+      {travelList[selectedId].allPackLists?.map((packList, index) =>
       <label htmlFor={packList} key={index}>
         <input type="checkbox" value={packList} id={packList} checked={selectedLists.includes(packList)} onChange={handleChange(packList)} data-testid="list-item"/>
         {packList}
