@@ -24,7 +24,7 @@ The user can click items to toggle them on/off (selected/unselected).
 
 Selected items get a visual "checked" style.
 
-### 3.3 Submit & Score
+### 3.3 Submit & Result
 A "Check Packing" button submits the user's selection.
 
 The app compares the user's choices against the correct packing list.
@@ -33,33 +33,7 @@ Scoring logic:
 
 +1 point for each correct item selected
 
--1 point for each incorrect item selected (penalty)
-
-Minimum score is 0 (cannot go negative)
-
-The score is displayed immediately after submission.
-
-### 3.4 Feedback
-After submission:
-
-<!-- Correctly selected items turn green
-
-Incorrectly selected items turn red
-
-Missing correct items are shown with a "You forgot: ..." message
-
-A "Next Destination" button advances to the next quiz. -->
-
-### 3.5 Score Dashboard
-A persistent scoreboard shows:
-
-<!-- Current score
-
-Total destinations completed
-
-Star rating (e.g., ⭐⭐⭐ for 100%, ⭐⭐ for 70%, ⭐ for 40%)
-
-The scoreboard updates automatically after each round. -->
+The result is displayed immediately after submission.
 
 ## 4. Component Structure(6 components)
 text
@@ -75,7 +49,7 @@ Src
 ├── PackingList
 │   └── Renders all information about city name, city image, allPackList
 └── Result
-    └── Shows correct/incorrect highlights and missing items, score, progress, and star rating
+    └── Shows correct/incorrect items, feedback
 
 ## 5. Data Structure
 TravelList Data
@@ -114,21 +88,17 @@ allPackItems: same as above + [
 ] 
 
 ## 6. User Flow (Step-by-Step)
-Page loads → User sees 5 cites + empty packing lists + score at 0
+Page loads → User sees 5 cites + empty packing lists + submit
 
-User clicks a city → Packing grid populates with a mixed list of items
+User clicks a city → allPackingLists with a mixed list of items
 
-User selects items (clicks to toggle) → Selected items highlight
+User selects items (clicks to toggle) → Selected items 
 
 User clicks "Submit" →
 
-Score updates
+Result updates
 
-Correct items turn green
-
-Incorrect items turn red
-
-Missing items shown in feedback message
+Result shown in feedback message
 
 ## 7. Screenshots
 (Placeholder – add actual screenshots here)
