@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react"
-import ListItems from '.'
+import ListItems from "../components/ListItems"
 
 describe("ListItems", () => {
   test("renders checkboxes for pack list items", () => {

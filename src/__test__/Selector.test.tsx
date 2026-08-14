@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react'
-import Selector from '.'
+import Selector from '../components/Selector'
 
 describe('Selector', () => {
   test("renders dropdown select element", () => {
