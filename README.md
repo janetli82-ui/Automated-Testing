@@ -1,6 +1,7 @@
 ## 1. Website Theme
 
-##Travel Packing Quiz
+## Travel Packing Quiz
+
 A single-page interactive quiz application where users test their travel preparation skills.
 
 ## 2. Overview
