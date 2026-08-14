@@ -6,6 +6,10 @@ type ResultProps = {
 };
 
 const Result = ({ travel, checkedItems }: ResultProps) => {
+  if (!checkedItems || checkedItems.length === 0) {
+    return null 
+  }
+
   const packedItems = travel.allPackLists.filter((item) =>
     checkedItems.includes(item),
   ).length;
@@ -23,7 +27,7 @@ const Result = ({ travel, checkedItems }: ResultProps) => {
   const isDone = remainingItems === 0;
 
   return (
-    <section className="p-3">
+    <section className="p-3" data-testid="result">
       <h4 className="text-3xl font-normal text-gray-900">Result</h4>
       <div className="mt-8 grid gap-6 text-gray-800 sm:grid-cols-3">
         <div>
@@ -63,7 +67,7 @@ const Result = ({ travel, checkedItems }: ResultProps) => {
                 ⚠️ Warning! You got all the correct answers ✅, but you also
                 selected extra ones ❌. Challenge failed 😞
               </p>
-            ) : null}
+            ) : <p>😞Challenge failed</p>}
             <ul className="mt-4 space-y-3">
               {travel.importantList.map((item) => {
                 const isPacked = checkedItems.includes(item);
