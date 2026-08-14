@@ -101,14 +101,9 @@ Result updates
 Result shown in feedback message
 
 ## 7. Screenshots
-(Placeholder – add actual screenshots here)
-
-text
-[Home page with 5 destination cards]
-[Packing grid with mixed items]
-[Feedback view with green/red highlights]
-[Final score screen with stars]
-Screenshots will be placed in public/screenshots/ and referenced here.
+[Home page with 5 destination cards](./selectcity.png)
+[Packing grid with mixed items](./packinglist.png)
+[Result with feedback view](./result.png)
 
 ## 8. Technologies
 Nextjs
@@ -131,7 +126,7 @@ Integration tests	Both
 
 ## 10. Testing Strategy
 Unit Tests (≥20)
-getByRole – testing buttons, headings, checkboxes
+getByRole – testing buttons, img, headings, checkboxes
 
 getAllBy... – testing multiple items in a grid
 
