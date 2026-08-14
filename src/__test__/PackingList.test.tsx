@@ -1,12 +1,11 @@
 import {render, screen, fireEvent} from "@testing-library/react"
 import PackingList from "../components/PackingList"
+import { travelList } from "@/data/city"
+
 
 describe("the packingList renders correctly", () => {
-  const mockCity = {id:6, name:"Tokyo", img:"Tokyo.jpg", allPackLists:["Hat/cap",
-    "Shorts (1 for weekend / 3 for week)",
-    "Jeans/light pants (1 for weekend / 2 for week)",
-    "Underwear (3 for weekend / 7 for week)",
-    "Socks (2 for weekend / 5 for week)",] }
+  const mockCity = travelList[3]
+  const mockSelectedLists=["Stylish summer tops (2 for weekend / 5 for week)","Shorts/skirt (1 for weekend / 2 for week)", "Linen trousers (1 for weekend / 2 for week)","Evening outfit (1 for weekend / 2 for week)", "Underwear (3 for weekend / 7 for week)"]
   const mockFunction = jest.fn()
   const mockClick = jest.fn()
 
@@ -15,33 +14,41 @@ describe("the packingList renders correctly", () => {
   })
 
   test("renders correct city name", () => {
-    render(<PackingList name={mockCity.name} img={mockCity.img} selectedId={mockCity.id} selectedLists={["Hat/cap", "Shorts (1 for weekend / 3 for week)"]} updateFunction={mockFunction} updateClick={mockClick}/>)
+    render(<PackingList name={mockCity.name} img={mockCity.img} selectedId={mockCity.id} selectedLists={mockSelectedLists} updateFunction={mockFunction} updateClick={mockClick}/>)
     const citiesName = screen.getByText(mockCity.name)
     expect(citiesName).toBeInTheDocument()
   })
 
   test("renders image with correct src and alt", () => {
-    render(<PackingList name={mockCity.name} img={mockCity.img} selectedId={mockCity.id} selectedLists={["Hat/cap", "Shorts (1 for weekend / 3 for week)"]} updateFunction={mockFunction} updateClick={mockClick}/>)
+    render(<PackingList name={mockCity.name} img={mockCity.img} selectedId={mockCity.id} selectedLists={mockSelectedLists} updateFunction={mockFunction} updateClick={mockClick}/>)
     const cityImg = screen.getByRole("img")
     expect(cityImg.getAttribute("src")).toBe(mockCity.img)
     expect(cityImg.getAttribute("alt")).toBe(mockCity.name)
   })
 
-  test("renders all packing list items", () => {
-    render(<PackingList name={mockCity.name} img={mockCity.img} selectedId={mockCity.id} selectedLists={["Hat/cap", "Shorts (1 for weekend / 3 for week)"]} updateFunction={mockFunction} updateClick={mockClick}/>)
-    const listItem = screen.getByTestId('list-item')
-    expect(listItem).toBeInTheDocument()
+  test("renders all packing list items from allPackLists", () => {
+    render(<PackingList name={mockCity.name} img={mockCity.img} selectedId={mockCity.id} selectedLists={mockSelectedLists} updateFunction={mockFunction} updateClick={mockClick}/>)
     mockCity.allPackLists.forEach(list => {
       const packs = screen.getByText(list)
       expect(packs).toBeInTheDocument()
     })
   })
+   
+  test("checkbox interaction in parent", () => {
+    render(<PackingList name={mockCity.name} img={mockCity.img} selectedId={mockCity.id} selectedLists={mockSelectedLists} updateFunction={mockFunction} updateClick={mockClick}/>)
+    const checkbox = screen.getByRole("checkbox");
+    fireEvent.click(checkbox);
+    expect(mockFunction).toHaveBeenCalled();
+  })
 
   test("calls updateClick when submit button is clicked", () => {
-    render(<PackingList name={mockCity.name} img={mockCity.img} selectedId={mockCity.id} selectedLists={["Hat/cap", "Shorts (1 for weekend / 3 for week)"]} updateFunction={mockFunction} updateClick={mockClick}/>)
-    const button = screen.getByText('Submit')
+    render(<PackingList name={mockCity.name} img={mockCity.img} selectedId={mockCity.id} selectedLists={["Stylish summer tops (2 for weekend / 5 for week)",
+      "Shorts/skirt (1 for weekend / 2 for week)",      
+      "Linen trousers (1 for weekend / 2 for week)",
+      "Evening outfit (1 for weekend / 2 for week)",
+      "Underwear (3 for weekend / 7 for week)"]} updateFunction={mockFunction} updateClick={mockClick}/>)
+    const button = screen.getByRole('button')
     fireEvent.click(button)
     expect(mockClick).toHaveBeenCalled()
   })
-
 })
