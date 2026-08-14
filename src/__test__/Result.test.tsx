@@ -39,14 +39,9 @@ describe("test the 4 possible outcomes of the result component", () => {
   })
 
   test("select all correct items but select extra, displays the result", () => {
-     render(<Result travel={mockCity} checkedItems={mockSelectedItems} />)
-     const correctItems = mockSelectedItems.filter(item => 
-      mockCity.importantList.includes(item)
-    )
-    if(extraItems.length > correctItems.length){
-      const showWarning = screen.getByTestId("result")
-      expect(showWarning).toHaveTextContent(/warning! you got all the correct answers, but you also selected extra ones.challenge failed/i)
-    }
+     render(<Result travel={mockCity} checkedItems={extraItems} />)
+      const result = screen.getByTestId("result")
+      expect(result).toHaveTextContent(/warning.*correct answers.*extra.*challenge failed/i)
   })
 
   test("the user hasn't played yet", () => {
