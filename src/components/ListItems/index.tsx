@@ -18,8 +18,8 @@ const ListItems = ({ selectedId, selectedLists, updateChangeBox}:listItemType) =
   }
 
   return(
-    <div className="flex flex-col">
-      {travelList[selectedId].allPackLists?.map((packList, index) =>
+    <div className="flex flex-col p-2">
+      {travelList[selectedId].allPackLists.map((packList, index) =>
       <label htmlFor={packList} key={index}>
         <input type="checkbox" value={packList} id={packList} checked={selectedLists.includes(packList)} onChange={handleChange(packList)} data-testid="list-item"/>
         {packList}
