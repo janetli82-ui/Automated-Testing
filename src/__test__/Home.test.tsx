@@ -1,47 +1,40 @@
 import {render, screen, fireEvent} from "@testing-library/react"
-import Home from ""
-
+import Home from "@/app/page"
+import { travelList } from "@/data/city"
 
 describe("Home component", () => {
   test("user can select city, then select importList and see result", () => {
-    const mockCity = "London"
+    const mockCity = travelList[4]
     render(<Home />)
     const selectedCity = screen.getByTestId("city")
-    fireEvent.change(selectedCity, { target: { value: mockCity } })
+    fireEvent.change((selectedCity as HTMLSelectElement), { target: { value: mockCity.name } })
    
-    const checkbox = screen.getByLabelText(mockCity) 
-    fireEvent.click(checkbox)
-    
-    const button = screen.getByText("Submit")
+    const checkbox = screen.getAllByRole("checkbox")
+      checkbox.forEach(item => {
+      fireEvent.click(item)
+    })
+
+    const button = screen.getByRole("button")
     fireEvent.click(button)
 
-    const result = screen.queryByTestId("result")
+    const result = screen.getByTestId("result")
     expect(result).toBeInTheDocument()
   })
   
   test("state change - displays correct packing list when city selected", () => {
-    const mockCity = {name:"London", allPackLists: [
-      "Light cotton T-shirts (2 for weekend / 5 for week)",
-      "Sneakers (1 pair)",
-      "Sandals (1 pair)",
-      "Sunscreen SPF 50+",
-      "Sunglasses"]}
+    const mockCity = travelList[4]
     render(<Home />)
     const selectedCity = screen.getByTestId("city")  
-    fireEvent.change(selectedCity, { target: { value: mockCity.name } })
+    fireEvent.change(selectedCity as HTMLSelectElement, { target: { value: mockCity.name } })
     expect((selectedCity as HTMLSelectElement).value).toBe(mockCity.name)
 
     mockCity.allPackLists.forEach(list => {
-      const item = screen.getAllByText(list)
+      const item = screen.getByText(list)
       expect(item).toBeInTheDocument()
     })
 
-    const listItems = screen.getAllByRole("list-item") 
+    const listItems = screen.getAllByTestId("list-item") 
     expect(listItems).toHaveLength(mockCity.allPackLists.length)
-  })
-
-  test("scoring", () => {
-
   })
 
 })
