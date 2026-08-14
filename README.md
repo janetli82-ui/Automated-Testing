@@ -36,7 +36,8 @@ Scoring logic:
 The result is displayed immediately after submission.
 
 ## 4. Component Structure(6 components)
-text
+
+``` 
 Src 
 ├── Header
 │   └── Displays title 
@@ -50,8 +51,10 @@ Src
 │   └── Renders all information about city name, city image, allPackList
 └── Result
     └── Shows correct/incorrect items, feedback
+``` 
 
 ## 5. Data Structure
+``` 
 TravelList Data
 typescript
 type travelType = {
@@ -86,7 +89,7 @@ allPackItems: same as above + [
   "Power bank",
   "Travel adapter",
 ] 
-
+``` 
 ## 6. User Flow (Step-by-Step)
 Page loads → User sees 5 cites + empty packing lists + submit
 
@@ -101,9 +104,9 @@ Result updates
 Result shown in feedback message
 
 ## 7. Screenshots
-[Home page with 5 destination cards](./selectcity.png)
-[Packing grid with mixed items](./packinglist.png)
-[Result with feedback view](./result.png)
+![Home page with 5 destination cards](./selectcity.png)
+![Packing grid with mixed items](./packinglist.png)
+![Result with feedback view](./result.png)
 
 ## 8. Technologies
 Nextjs
