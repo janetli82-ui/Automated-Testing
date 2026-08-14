@@ -104,9 +104,9 @@ Result updates
 Result shown in feedback message
 
 ## 7. Screenshots
-![Home page with 5 destination cards](./selectcity.png)
-![Packing grid with mixed items](./packinglist.png)
-![Result with feedback view](./result.png)
+![Home page with 5 destination cards](./public/selectcity.png)
+![Packing grid with mixed items](./public/packinglist.png)
+![Result with feedback view](./public/result.png)
 
 ## 8. Technologies
 Nextjs
