@@ -1,5 +1,5 @@
 import {render, screen, fireEvent} from "@testing-library/react"
-import Home from ""
+import Home from "@/app/page"
 import { travelList } from "@/data/city"
 
 describe("Home component", () => {
