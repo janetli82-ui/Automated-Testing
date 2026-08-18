@@ -1,83 +1,73 @@
-Proposal: Travel Packing Quiz
 ## 1. Website Theme
-Travel Packing Quiz – a single-page interactive quiz application where users test their travel preparation skills.
+
+## Travel Packing Quiz
+
+A single-page interactive quiz application where users test their travel preparation skills.
 
 ## 2. Overview
+
 The user is presented with a travel city and must select the essential packing items from a mixed list of options. After submitting their choices, the app calculates a score based on how many correct items they selected (and how many wrong items they avoided).
 
-This is not a standard todo-list or packing checklist — it is a quiz-style game that tests the user's knowledge of what to pack for summer and activities.
+This is **not** a standard to-do list or packing checklist — it is a quiz-style game that tests the user's knowledge of what to pack for summer trips and activities.
 
 ## 3. Features & Functionality
+
 ### 3.1 City Selection
-The page displays 5 travel cities as clickable choice.
-
-Each choice shows: city name, emoji.
-
-Clicking choice selects it as the current city.
+- The page displays 5 travel cities as clickable choices.
+- Each choice shows:
+  - City name
+  - Emoji icon
+- Clicking a city selects it as the current city and reveals the packing list.
 
 ### 3.2 Packing Item Selection
-Once a city is selected, a list packing items appears.
+- Once a city is selected, a list of packing items appears.
+- The list contains both:
+  - Essential (correct) items for that city
+  - Decoy (incorrect or non-essential) items
+- The user can click items to toggle them on/off (selected/unselected).
+- Selected items get a visual “checked” style.
 
-It contains both correct and incorrect items for that city.
-
-The user can click items to toggle them on/off (selected/unselected).
-
-Selected items get a visual "checked" style.
-
-### 3.3 Submit & Score
-A "Check Packing" button submits the user's selection.
-
-The app compares the user's choices against the correct packing list.
-
-Scoring logic:
-
-+1 point for each correct item selected
-
--1 point for each incorrect item selected (penalty)
-
-Minimum score is 0 (cannot go negative)
-
-The score is displayed immediately after submission.
-
-### 3.4 Feedback
-After submission:
-
-<!-- Correctly selected items turn green
-
-Incorrectly selected items turn red
-
-Missing correct items are shown with a "You forgot: ..." message
-
-A "Next Destination" button advances to the next quiz. -->
-
-### 3.5 Score Dashboard
-A persistent scoreboard shows:
-
-<!-- Current score
-
-Total destinations completed
-
-Star rating (e.g., ⭐⭐⭐ for 100%, ⭐⭐ for 70%, ⭐ for 40%)
-
-The scoreboard updates automatically after each round. -->
+### 3.3 Submit & Result
+- A **“Check Packing”** button submits the user’s selection.
+- The app compares the user’s choices against the correct packing list (`essentialItems`).
+- **Scoring logic:**
+  - +1 point for each **essential** item that is selected.
+  - Incorrectly selected decoy items **do not affect the score** (no penalty).
+  - The score equals the number of correctly selected essential items.
+- The result is displayed immediately after submission, including:
+  - Final score
+  - Feedback on correctly selected essential items
+  - (Optionally) missed essential items and incorrectly selected decoy items
 
 ## 4. Component Structure(6 components)
+
+```
 text
-Src 
+src/
 ├── Header
-│   └── Displays title 
+│   └── Displays the main title (e.g., "Travel Packing Quiz")
 ├── SubTitle
-│   └── Displays subTitle in Header
+│   └── Displays the subtitle in the header (e.g., "Test your packing skills")
 ├── Selector
-│   └── Renders 5 city choices, handles selection
+│   └── Renders 5 city choices and handles city selection
 ├── ListItems
-│   └── Renders mixed item buttons with toggle selection in PackingList
+│   └── Renders item buttons with toggle selection inside PackingList
 ├── PackingList
-│   └── Renders all information about city name, city image, allPackList
+│   └── Renders city name, city image, and the full list of packing items
 └── Result
-    └── Shows correct/incorrect highlights and missing items, score, progress, and star rating
+    └── Shows score, correct/incorrect items, and feedback message
+```
+**State ownership (top-level page component):**
+
+- `selectedCity: TravelCity | null`
+- `selectedItems: string[]`
+- `score: number | null`
+
+Child components receive props and callbacks from this parent.
 
 ## 5. Data Structure
+```
+ts
 TravelList Data
 typescript
 type travelType = {
@@ -86,7 +76,7 @@ type travelType = {
   name:string,
   img:string,
   importantList:string[],
-  allPackLists:string[]
+  allPackItems:string[]
 }
 
 Example: Shanghai
@@ -94,7 +84,7 @@ id: 1,
 icon: "🏙️",
 name: "Shanghai",
 img: "Shanghai.jpg",
-importItems: [
+importantItems: [
   "Light cotton T-shirts (2 for weekend, 5 for week)",
   "Shorts (1 for weekend, 3 for week)",
   "Sunscreen SPF 50+",
@@ -112,69 +102,127 @@ allPackItems: same as above + [
   "Power bank",
   "Travel adapter",
 ] 
-
+``` 
 ## 6. User Flow (Step-by-Step)
-Page loads → User sees 5 cites + empty packing lists + score at 0
+1. **Page loads**  
+   - User sees 5 city choices.  
+   - No packing list is shown.  
+   - “Check Packing” button is disabled.
 
-User clicks a city → Packing grid populates with a mixed list of items
+2. **User clicks a city**  
+   - The app displays that city’s `allPackItems` as a mixed list of essential and decoy items.
 
-User selects items (clicks to toggle) → Selected items highlight
+3. **User selects items**  
+   - Clicking an item toggles its selection.  
+   - Selected items are visually highlighted.
 
-User clicks "Submit" →
+4. **User clicks “Check Packing”**  
+   - The app calculates the score based on `essentialItems` vs. `selectedItems`.  
+   - The `Result` component shows:
+     - Score
+     - List of correctly selected essential items
+     - (Optionally) missed essential items
+     - (Optionally) incorrectly selected decoy items
 
-Score updates
-
-Correct items turn green
-
-Incorrect items turn red
-
-Missing items shown in feedback message
+5. **User selects a different city**  
+   - The packing list and result reset for the new city.  
+   - Previously selected items are cleared.
 
 ## 7. Screenshots
-(Placeholder – add actual screenshots here)
-
-text
-[Home page with 5 destination cards]
-[Packing grid with mixed items]
-[Feedback view with green/red highlights]
-[Final score screen with stars]
-Screenshots will be placed in public/screenshots/ and referenced here.
+![Home page with 5 destination cards](./public/selectcity.png)
+![Packing grid with mixed items](./public/packinglist.png)
+![Result with feedback view](./public/result.png)
 
 ## 8. Technologies
-Nextjs
-
-TypeScript
-
-Vitest / Jest + React Testing Library
-
-tailwind
+- Next.js
+- TypeScript
+- Vitest (or Jest) + React Testing Library
+- Tailwind CSS
 
 ## 9. Team(Division of Work)
-Component	Responsible
-Header	Gabi
-SubTitle Ting
-Selector	Ting
-PackingList Gabi
-ListItems	Ting
-Result	Gabi
-Integration tests	Both
+| Component        | Responsible |
+|------------------|-------------|
+| Header           | Gabi        |
+| SubTitle         | Ting        |
+| Selector         | Ting        |
+| PackingList      | Gabi        |
+| ListItems        | Ting        |
+| Result           | Gabi        |
+| Integration tests| Both        |
+| Data file        | Ting        |
 
 ## 10. Testing Strategy
-Unit Tests (≥20)
-getByRole – testing buttons, headings, checkboxes
+All tests are written in TypeScript.
 
-getAllBy... – testing multiple items in a grid
+### Unit Tests (≥20 total)
 
-queryBy... – testing for absent items (e.g., decoys not showing as correct)
+Focus areas and example checks:
 
-Events: click, change
+- **Selector**
+  - Renders 5 city buttons.
+  - Clicking a city calls `onSelectCity` with the correct city.
+  - Selected city is visually distinguished.
+  - Uses `getByRole` to access city buttons.
 
-Integration Tests (≥3)
-Full flow: Select city→ pick items → submit → score updates 
+- **ListItems**
+  - Renders all items from `allPackItems`.
+  - Clicking an item toggles its selection.
+  - Selected items have the correct visual state.
+  - Uses `getAllByRole` to query multiple item buttons.
+  - Decoy items are rendered but are not in `essentialItems`.
 
-State change: City switches → packing list updates
+- **Result**
+  - Shows the correct score.
+  - Lists correctly selected essential items.
+  - (If implemented) lists missed essential items.
+  - (If implemented) lists incorrectly selected decoy items.
 
-Scoring: Correct items add points, wrong items subtract points
+- **Header / SubTitle**
+  - Render expected title and subtitle text.
+  - Use appropriate heading levels (`h1`, `h2`) for accessibility.
+
+- **PackingList**
+  - Shows city name and image when a city is selected.
+  - Passes correct props to `ListItems` and `Result`.
+  - “Check Packing” button is disabled until a city is selected (if implemented).
+  - Calls `onSubmit` when clicked.
+
+**Accessibility-focused checks:**
+
+- City buttons have role `button` and accessible labels.
+- Item toggles use `button` or `checkbox` with appropriate `aria-pressed` or `aria-checked`.
+- Headings use semantic levels (`h1`, `h2`, etc.).
+
+### Integration Tests (≥3 total)
+
+1. **Full flow**
+   - Render app.
+   - Select “Shanghai”.
+   - Select a mix of essential and decoy items.
+   - Click “Check Packing”.
+   - Assert:
+     - Score equals the number of correctly selected essential items.
+     - Result text includes expected feedback.
+
+2. **City switch resets state**
+   - Select “Shanghai”.
+   - Select some items.
+   - Switch to another city (e.g., “Paris”).
+   - Assert:
+     - Packing list now shows Paris items.
+     - Previously selected Shanghai items are no longer selected.
+     - Result is cleared or updated for the new city.
+
+3. **Scoring logic**
+   - Select a city.
+   - Select:
+     - All essential items.
+     - Some decoy items.
+   - Submit.
+   - Assert:
+     - Exact score matches number of essential items selected.
+     - Decoy items do not increase the score.
+
 
 ## 11. Notes
 The website UI will not be assessed – only the proposal and tests.
@@ -187,5 +235,4 @@ All tests are written in TypeScript.
 City images: public/*.jpg
 
 Data file: src/data/city.ts
-
 
