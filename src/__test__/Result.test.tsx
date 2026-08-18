@@ -8,7 +8,7 @@ describe("test the 4 possible outcomes of the result component", () => {
     "Linen trousers (1 for weekend / 2 for week)",
     "Evening outfit (1 for weekend / 2 for week)",
     "Comfortable heels/flats","Sun hat"]
-  const extraItems = [...mockSelectedItems, "Cross-body bag", "Umbrella"]
+  const extraItems = [...mockCity.importantList, "Stylish sunglasses", "Tote bag"]
 
   test("you select all correct items, displays the result", () => {
     render(<Result travel={mockCity} checkedItems={mockSelectedItems} />)
@@ -35,13 +35,15 @@ describe("test the 4 possible outcomes of the result component", () => {
       mockCity.importantList.includes(item)
     )
     const score = correctItems.length / mockCity.importantList.length 
-    expect(score).toHaveTextContent(score.toString())
+    const result= screen.getByTestId("result")
+    expect(result).toHaveTextContent(score.toString())
   })
 
   test("select all correct items but select extra, displays the result", () => {
      render(<Result travel={mockCity} checkedItems={extraItems} />)
-      const result = screen.getByTestId("result")
-      expect(result).toHaveTextContent(/warning.*correct answers.*extra.*challenge failed/i)
+     const result = screen.getByTestId("result")
+     expect(result).toHaveTextContent(/warning.*correct answers.*extra.*challenge failed/i)
+    
   })
 
   test("the user hasn't played yet", () => {
