@@ -1,5 +1,6 @@
 import { travelList } from "@/data/city"
 
+
 type selectorType = {
   city:string,
   updateCity:(city:string) => void

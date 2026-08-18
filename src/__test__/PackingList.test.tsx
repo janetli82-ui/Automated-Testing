@@ -29,22 +29,24 @@ describe("the packingList renders correctly", () => {
   test("renders all packing list items from allPackLists", () => {
     render(<PackingList name={mockCity.name} img={mockCity.img} selectedId={mockCity.id} selectedLists={mockSelectedLists} updateFunction={mockFunction} updateClick={mockClick}/>)
     mockCity.allPackLists.forEach(list => {
-      const packs = screen.getByText(list)
+      const packs = screen.getByLabelText(list)
       expect(packs).toBeInTheDocument()
     })
   })
    
   test("checkbox interaction in parent", () => {
     render(<PackingList name={mockCity.name} img={mockCity.img} selectedId={mockCity.id} selectedLists={mockSelectedLists} updateFunction={mockFunction} updateClick={mockClick}/>)
-    const checkbox = screen.getAllByRole("checkbox");
-    fireEvent.click(checkbox[0]);
-    expect(mockFunction).toHaveBeenCalled();
+    const checkbox = screen.getAllByRole("checkbox")
+    fireEvent.click(checkbox[0])
+
+    expect(mockFunction).toHaveBeenCalled()
   })
 
   test("calls updateClick when submit button is clicked", () => {
     render(<PackingList name={mockCity.name} img={mockCity.img} selectedId={mockCity.id} selectedLists={mockSelectedLists} updateFunction={mockFunction} updateClick={mockClick}/>)
     const button = screen.getByRole('button')
     fireEvent.click(button)
+    
     expect(mockClick).toHaveBeenCalled()
   })
 })
